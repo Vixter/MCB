@@ -18,7 +18,7 @@ import retrofit.Retrofit;
  */
 public class Config {
 
-    private final String BASE_URL = "https://gateway.marvel.com/v1/public/";
+    private final String BASE_URL = "http://gateway.marvel.com:80/v1/public/";
     private final String privateKey;
     private final String publicKey;
     private Retrofit retrofit;
