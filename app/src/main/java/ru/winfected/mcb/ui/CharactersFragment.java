@@ -25,11 +25,10 @@ import ru.winfected.mcb.network.RestRequest;
 public class CharactersFragment extends Fragment implements Callback<MarvelResponse<Characters>>{
 
     RecyclerView recyclerView;
-    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_comics, container, false);
+        View view = inflater.inflate(R.layout.fragment_comics, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         Config config = new Config(getString(R.string.public_key), getString(R.string.private_key));
@@ -41,12 +40,13 @@ public class CharactersFragment extends Fragment implements Callback<MarvelRespo
 
     @Override
     public void onResponse(Response<MarvelResponse<Characters>> response, Retrofit retrofit) {
-        recyclerView.setAdapter(new RecyclerViewAdapter(new ArrayList<>(response.body().getResponse().getCharacters())));
+        if(response.body() == null)
+            Toast.makeText(getContext(),response.message()+" "+String.valueOf(response.code()), Toast.LENGTH_LONG).show();
+        else recyclerView.setAdapter(new RecyclerViewAdapter(new ArrayList<>(response.body().getResponse().getCharacters())));
     }
 
     @Override
     public void onFailure(Throwable t) {
-        int i = 0+9;
-        Toast.makeText(view.getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
     }
 }
