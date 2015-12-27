@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import ru.winfected.mcb.fragment.ComicsFragment;
+import ru.winfected.mcb.ui.characters.CharactersFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -117,16 +117,16 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.navigation_item_characters:
-                fragmentClass = ComicsFragment.class;
+                fragmentClass = CharactersFragment.class;
                 break;
             case R.id.navigation_item_comics:
-                fragmentClass = ComicsFragment.class;
+                fragmentClass = CharactersFragment.class;
                 break;
             case R.id.navigation_item_about:
-                fragmentClass = ComicsFragment.class;
+                fragmentClass = CharactersFragment.class;
                 break;
             default:
-                fragmentClass = ComicsFragment.class;
+                fragmentClass = CharactersFragment.class;
         }
 
         try {

@@ -1,4 +1,4 @@
-package ru.winfected.mcb.fragment;
+package ru.winfected.mcb.ui.characters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,42 +7,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import retrofit.Call;
+import retrofit.Callback;
 import retrofit.Response;
+import retrofit.Retrofit;
 import ru.winfected.mcb.R;
-import ru.winfected.mcb.adapter.RecyclerViewAdapter;
 import ru.winfected.mcb.model.*;
-import ru.winfected.mcb.rest.Config;
-import ru.winfected.mcb.rest.RestRequest;
+import ru.winfected.mcb.network.Config;
+import ru.winfected.mcb.network.RestRequest;
+import ru.winfected.mcb.ui.RecyclerViewAdapter;
 
 /**
  * Created by winfe on 27.12.2015.
  */
-public class ComicsFragment extends Fragment {
+public class CharactersFragment extends Fragment implements Callback<MarvelResponse<Characters>>{
 
     RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comics, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         Config config = new Config(getString(R.string.public_key), getString(R.string.private_key));
         RestRequest request = config.getRetrofit().create(RestRequest.class);
-        Call<MarvelResponse<Characters>> call = request.getCharacters();
-        ArrayList<ru.winfected.mcb.model.Character> characters;
-        try {
-            Response<MarvelResponse<Characters>> response = call.execute();
-            characters = new ArrayList<>(response.body().getResponse().getCharacters());
-            recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-            recyclerView.setAdapter(new RecyclerViewAdapter(characters));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        request.getCharacters().enqueue(this);
 
         return view;
     }
 
+    @Override
+    public void onResponse(Response<MarvelResponse<Characters>> response, Retrofit retrofit) {
+        recyclerView.setAdapter(new RecyclerViewAdapter(new ArrayList<>(response.body().getResponse().getCharacters())));
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
 }

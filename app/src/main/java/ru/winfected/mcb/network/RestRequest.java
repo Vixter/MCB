@@ -1,4 +1,4 @@
-package ru.winfected.mcb.rest;
+package ru.winfected.mcb.network;
 
 import retrofit.Call;
 import retrofit.http.GET;

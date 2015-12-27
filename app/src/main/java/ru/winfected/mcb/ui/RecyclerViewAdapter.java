@@ -1,4 +1,4 @@
-package ru.winfected.mcb.adapter;
+package ru.winfected.mcb.ui;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

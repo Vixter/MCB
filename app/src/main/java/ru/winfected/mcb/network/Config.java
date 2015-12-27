@@ -1,4 +1,4 @@
-package ru.winfected.mcb.rest;
+package ru.winfected.mcb.network;
 
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
