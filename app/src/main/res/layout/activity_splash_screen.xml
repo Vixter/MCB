@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/dead_pool">
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:id="@+id/splashText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="MARVEL \ncomics browser"
+        android:textSize="34dp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
