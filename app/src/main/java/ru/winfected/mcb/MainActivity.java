@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import ru.winfected.mcb.ui.CharactersFragment;
+import ru.winfected.mcb.ui.characters.CharactersFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package ru.winfected.mcb.ui;
+package ru.winfected.mcb.ui.characters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +18,7 @@ import ru.winfected.mcb.R;
 import ru.winfected.mcb.model.*;
 import ru.winfected.mcb.network.Config;
 import ru.winfected.mcb.network.RestRequest;
+import ru.winfected.mcb.ui.RecyclerViewAdapter;
 
 /**
  * Created by winfe on 27.12.2015.
