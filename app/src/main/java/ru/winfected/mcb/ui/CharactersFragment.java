@@ -39,8 +39,6 @@ public class CharactersFragment extends Fragment implements Callback<MarvelRespo
         return view;
     }
 
-
-
     @Override
     public void onResponse(Response<MarvelResponse<Characters>> response, Retrofit retrofit) {
         recyclerView.setAdapter(new RecyclerViewAdapter(new ArrayList<>(response.body().getResponse().getCharacters())));
