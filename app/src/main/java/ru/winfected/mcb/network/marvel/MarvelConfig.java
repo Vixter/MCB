@@ -1,4 +1,4 @@
-package ru.winfected.mcb.network;
+package ru.winfected.mcb.network.marvel;
 
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
@@ -16,7 +16,7 @@ import retrofit.Retrofit;
 /**
  * Created by winfe on 27.12.2015.
  */
-public class Config {
+public class MarvelConfig {
 
     private final String BASE_URL = "http://gateway.marvel.com:80/v1/public/";
     private final String privateKey;
@@ -24,7 +24,7 @@ public class Config {
     private Retrofit retrofit;
 
 
-    public Config(String publicKey, String privateKey) {
+    public MarvelConfig(String publicKey, String privateKey) {
         this.publicKey = publicKey;
         this.privateKey = privateKey;
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL)

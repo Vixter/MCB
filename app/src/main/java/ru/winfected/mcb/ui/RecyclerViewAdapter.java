@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import ru.winfected.mcb.R;
-import ru.winfected.mcb.model.Character;
+import ru.winfected.mcb.model.marvel.Character;
+import ru.winfected.mcb.model.themoviedb.Movie;
 
 
 /**
@@ -17,7 +18,7 @@ import ru.winfected.mcb.model.Character;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Character> comicArrayList;
+    private ArrayList<Movie> comicArrayList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public CardView cardView;
@@ -28,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(ArrayList<Character> characters){
+    public RecyclerViewAdapter(ArrayList<Movie> characters){
         comicArrayList = characters;
     }
 
@@ -43,12 +44,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Character item = comicArrayList.get(position);
+        Movie item = comicArrayList.get(position);
 
         TextView textView = (TextView) holder.cardView.findViewById(R.id.card_view_textview);
         ImageView imageView = (ImageView) holder.cardView.findViewById(R.id.card_view_image);
 
-        textView.setText(item.getName());
+        textView.setText(item.getTitle());
         //imageView.setImageBitmap();
 
     }

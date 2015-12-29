@@ -1,4 +1,4 @@
-package ru.winfected.mcb.model;
+package ru.winfected.mcb.model.marvel;
 
 import com.google.gson.annotations.SerializedName;
 
