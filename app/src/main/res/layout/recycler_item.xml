@@ -21,10 +21,11 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/card_view_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                card_view:placeholderImage="@android:drawable/ic_dialog_info"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"/>

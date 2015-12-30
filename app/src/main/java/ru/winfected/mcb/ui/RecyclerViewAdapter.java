@@ -1,5 +1,6 @@
 package ru.winfected.mcb.ui;
 
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView textView = holder.textView;
         ImageView imageView = holder.imageView;
         textView.setText(item.getTitle());
-
         //imageView.setImageBitmap();
 
     }

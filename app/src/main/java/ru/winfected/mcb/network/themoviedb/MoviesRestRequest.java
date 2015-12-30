@@ -15,6 +15,4 @@ public interface MoviesRestRequest {
     @GET("/3/discover/movie")
     Call<ListMovie> getAllMovies();
 
-    @GET("/authentication/token/new")
-    Call<String> getAccsessToken(@Query(Params.PARAM_API_KEY) String API_KEY);
 }
