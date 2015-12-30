@@ -2,6 +2,7 @@ package ru.winfected.mcb.ui.characters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ public class CharactersFragment extends Fragment implements Callback<ListMovie> 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comics, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         //MarvelConfig config = new MarvelConfig(getString(R.string.public_key), getString(R.string.private_key));
         //MarvelRestRequest request = config.getRetrofit().create(MarvelRestRequest.class);

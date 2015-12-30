@@ -3,8 +3,10 @@ package ru.winfected.mcb.ui;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,13 +21,14 @@ import ru.winfected.mcb.model.themoviedb.Movie;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<Movie> comicArrayList;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView textView;
+        public ImageView imageView;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public CardView cardView;
-
-        public ViewHolder(CardView cardView) {
-            super(cardView);
-            this.cardView = cardView;
+        public ViewHolder(LinearLayout item) {
+            super(item);
+            this.textView = (TextView) item.findViewById(R.id.card_view_textview);
+            this.imageView = (ImageView) item.findViewById(R.id.card_view_image);
         }
     }
 
@@ -34,22 +37,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        CardView cardView = (CardView) layoutInflater.inflate(R.layout.recycler_item, parent, false);
-        ViewHolder vh = new ViewHolder(cardView);
+        LinearLayout view = (LinearLayout) layoutInflater.inflate(R.layout.recycler_item, parent, false);
+        ViewHolder vh = new ViewHolder(view);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
+    public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
         Movie item = comicArrayList.get(position);
 
-        TextView textView = (TextView) holder.cardView.findViewById(R.id.card_view_textview);
-        ImageView imageView = (ImageView) holder.cardView.findViewById(R.id.card_view_image);
-
+        TextView textView = holder.textView;
+        ImageView imageView = holder.imageView;
         textView.setText(item.getTitle());
+
         //imageView.setImageBitmap();
 
     }
