@@ -42,7 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<CardViewHolder> {
         SimpleDraweeView imageView = holder.imageView;
         textView.setText(item.getTitle());
         Uri imageUri = Uri.parse("http://image.tmdb.org/t/p/w185"
-                + item.getBackdrop_path());
+                + item.getPoster_path());
 
         imageView.setImageURI(imageUri);
 

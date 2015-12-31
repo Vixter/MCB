@@ -15,7 +15,9 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 import ru.winfected.mcb.R;
+import ru.winfected.mcb.db.MovieDatabaseHelper;
 import ru.winfected.mcb.model.themoviedb.ListMovie;
+import ru.winfected.mcb.model.themoviedb.Movie;
 import ru.winfected.mcb.network.themoviedb.MovieConfig;
 import ru.winfected.mcb.network.themoviedb.MoviesRestRequest;
 
@@ -42,12 +44,19 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
     public void onResponse(Response<ListMovie> response, Retrofit retrofit) {
         if(response.body() == null)
             Toast.makeText(getContext(), response.message() + " " + String.valueOf(response.code()), Toast.LENGTH_LONG).show();
-        else recyclerView.setAdapter(new MovieAdapter(new ArrayList(response.body().getResults())));
+        else {
+            MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+            ArrayList<Movie> movieArrayList = new ArrayList(response.body().getResults());
+            for(Movie m : movieArrayList) databaseHelper.addMovie(m);
+            recyclerView.setAdapter(new MovieAdapter(movieArrayList));
+        }
     }
 
     @Override
     public void onFailure(Throwable t) {
         Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+        recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
     }
 
 }
