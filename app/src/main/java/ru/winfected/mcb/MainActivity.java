@@ -17,6 +17,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import ru.winfected.mcb.ui.marvel.characters.CharactersFragment;
 import ru.winfected.mcb.ui.themoviedb.MovieDiscoverFragment;
+import ru.winfected.mcb.ui.themoviedb.MoviePopularFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 //break;
             case R.id.navigation_item_movie:
                 fragmentClass = MovieDiscoverFragment.class;
+                break;
+            case R.id.navigation_item_popular:
+                fragmentClass = MoviePopularFragment.class;
                 break;
             default:
                 return;

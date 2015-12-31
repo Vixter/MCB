@@ -6,6 +6,8 @@ package ru.winfected.mcb.network.themoviedb;
 public abstract class Params {
     public static final String PARAM_YEAR = "year";
     public static final String PARAM_SORT = "sort_by";
+    public static final String PARAM_RELEASE_DATE_gte = "primary_release_date.gte";
+    public static final String PARAM_RELEASE_DATE_lte = "primary_release_date.lte";
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_LANGUAGE = "language";
     public static final String PARAM_ID = "id";

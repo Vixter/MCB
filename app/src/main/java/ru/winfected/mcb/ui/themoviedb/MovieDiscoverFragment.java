@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -18,6 +19,7 @@ import ru.winfected.mcb.R;
 import ru.winfected.mcb.model.themoviedb.ListMovie;
 import ru.winfected.mcb.network.themoviedb.MovieConfig;
 import ru.winfected.mcb.network.themoviedb.MoviesRestRequest;
+import ru.winfected.mcb.utils.Date;
 
 /**
  * Created by winfe on 31.12.2015.
@@ -34,8 +36,14 @@ public class MovieDiscoverFragment extends Fragment implements Callback<ListMovi
 
         MovieConfig config = new MovieConfig(getString(R.string.themoviedb_api_key));
         MoviesRestRequest restRequest = config.getRetrofit().create(MoviesRestRequest.class);
-        restRequest.getAllMovies().enqueue(this);
-        //restRequest.getAllPopularMovies("popularity.desc").enqueue(this);
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date());
+        c.add(Calendar.MONTH, -1);
+
+
+        restRequest.getAllMovies(Date.DateToUTCString(c.getTime(), "yyyy'-'MM'-'dd"),
+                Date.DateToUTCString(new java.util.Date(), "yyyy'-'MM'-'dd")).enqueue(this);
         return view;
     }
 
