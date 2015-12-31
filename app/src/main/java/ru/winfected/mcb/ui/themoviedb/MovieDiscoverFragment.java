@@ -35,7 +35,7 @@ public class MovieDiscoverFragment extends Fragment implements Callback<ListMovi
         MovieConfig config = new MovieConfig(getString(R.string.themoviedb_api_key));
         MoviesRestRequest restRequest = config.getRetrofit().create(MoviesRestRequest.class);
         restRequest.getAllMovies().enqueue(this);
-
+        //restRequest.getAllPopularMovies("popularity.desc").enqueue(this);
         return view;
     }
 
@@ -43,7 +43,7 @@ public class MovieDiscoverFragment extends Fragment implements Callback<ListMovi
     public void onResponse(Response<ListMovie> response, Retrofit retrofit) {
         if(response.body() == null)
             Toast.makeText(getContext(), response.message() + " " + String.valueOf(response.code()), Toast.LENGTH_LONG).show();
-        else recyclerView.setAdapter(new MovieDiscoverAdapter(new ArrayList(response.body().getResults())));
+        else recyclerView.setAdapter(new MovieAdapter(new ArrayList(response.body().getResults())));
     }
 
     @Override

@@ -5,6 +5,7 @@ package ru.winfected.mcb.network.themoviedb;
  */
 public abstract class Params {
     public static final String PARAM_YEAR = "year";
+    public static final String PARAM_SORT = "sort_by";
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_LANGUAGE = "language";
     public static final String PARAM_ID = "id";

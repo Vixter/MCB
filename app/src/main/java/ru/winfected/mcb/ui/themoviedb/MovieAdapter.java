@@ -18,11 +18,11 @@ import ru.winfected.mcb.ui.CardViewHolder;
 /**
  * Created by winfe on 27.12.2015.
  */
-public class MovieDiscoverAdapter extends RecyclerView.Adapter<CardViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     private ArrayList<Movie> movieArrayList;
 
-    public MovieDiscoverAdapter(ArrayList<Movie> characters){
+    public MovieAdapter(ArrayList<Movie> characters){
         movieArrayList = characters;
     }
 

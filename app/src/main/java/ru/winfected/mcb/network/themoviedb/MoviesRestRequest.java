@@ -1,7 +1,5 @@
 package ru.winfected.mcb.network.themoviedb;
 
-import java.util.List;
-
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -15,4 +13,6 @@ public interface MoviesRestRequest {
     @GET("/3/discover/movie")
     Call<ListMovie> getAllMovies();
 
+    @GET("/3/discover/movie")
+    Call<ListMovie> getAllPopularMovies(@Query(Params.PARAM_SORT) String sort_by);
 }

@@ -20,7 +20,10 @@
                     android:id="@+id/navigation_item_movie"
                     android:icon="@android:drawable/presence_video_online"
                     android:title="@string/nav_item_movies_discover" />
-
+                <item
+                    android:id="@+id/navigation_item_popular"
+                    android:icon="@android:drawable/presence_video_online"
+                    android:title="@string/nav_item_movies_popular" />
             </menu>
         </item>
     </group>
