@@ -2,15 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group>
-        <item
-            android:id="@+id/navigation_item_characters"
-            android:icon="@drawable/ic_characters"
-            android:title="@string/nav_item_characters" />
-        <item
-            android:id="@+id/navigation_item_comics"
-            android:icon="@drawable/ic_comics"
-            android:title="@string/nav_item_comics" />
+        <item android:title="MARVEL">
+            <menu>
+                <item
+                    android:id="@+id/navigation_item_characters"
+                    android:icon="@drawable/ic_characters"
+                    android:title="@string/nav_item_characters" />
+                <item
+                    android:id="@+id/navigation_item_comics"
+                    android:icon="@drawable/ic_comics"
+                    android:title="@string/nav_item_comics" />
+            </menu>
+        </item>
+        <item android:title="TheMovieDB">
+            <menu>
+                <item
+                    android:id="@+id/navigation_item_movie"
+                    android:icon="@android:drawable/presence_video_online"
+                    android:title="@string/nav_item_movies_discover" />
 
+            </menu>
+        </item>
     </group>
 
     <item android:title="@string/nav_sub_menu">

@@ -11,4 +11,5 @@ public abstract class Params {
     public static final String PARAM_ADULT = "include_adult";
     public static final String PARAM_API_KEY = "api_key";
     public static final String BASE_URL = "http://api.themoviedb.org/";
+    public static String API_KEY_VALUE;
 }

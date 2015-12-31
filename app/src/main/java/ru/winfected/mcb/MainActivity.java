@@ -15,7 +15,8 @@ import android.view.MenuItem;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import ru.winfected.mcb.ui.characters.CharactersFragment;
+import ru.winfected.mcb.ui.marvel.characters.CharactersFragment;
+import ru.winfected.mcb.ui.themoviedb.MovieDiscoverFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //region Overrided
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -97,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
-    //endregion
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -120,13 +120,15 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = CharactersFragment.class;
                 break;
             case R.id.navigation_item_comics:
-                fragmentClass = CharactersFragment.class;
-                break;
-            case R.id.navigation_item_about:
-                fragmentClass = CharactersFragment.class;
+                //fragmentClass = CharactersFragment.class;
+                return;
+                //break;
+            case R.id.navigation_item_movie:
+                fragmentClass = MovieDiscoverFragment.class;
                 break;
             default:
-                fragmentClass = CharactersFragment.class;
+                return;
+                //fragmentClass = CharactersFragment.class;
         }
 
         try {
