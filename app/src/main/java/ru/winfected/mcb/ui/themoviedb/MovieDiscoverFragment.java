@@ -44,7 +44,8 @@ public class MovieDiscoverFragment extends Fragment implements Callback<ListMovi
         c.add(Calendar.MONTH, -1);
 
 
-        restRequest.getAllMovies(Date.DateToUTCString(c.getTime(), "yyyy'-'MM'-'dd"),
+        restRequest.getAllMovies(1,
+                Date.DateToUTCString(c.getTime(), "yyyy'-'MM'-'dd"),
                 Date.DateToUTCString(new java.util.Date(), "yyyy'-'MM'-'dd")).enqueue(this);
         return view;
     }

@@ -1,19 +1,18 @@
 package ru.winfected.mcb.ui.themoviedb;
 
-import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import ru.winfected.mcb.R;
 import ru.winfected.mcb.model.themoviedb.Movie;
 
@@ -26,29 +25,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewHold
     private ArrayList<Movie> movieArrayList;
 
     public MovieAdapter(ArrayList<Movie> characters){
-        movieArrayList = characters;
+        if(characters != null){
+            movieArrayList = characters;
+        } else {
+            movieArrayList = new ArrayList<>();
+        }
     }
 
-    public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
         public SimpleDraweeView imageView;
-        private WeakReference<Context> contextWeakReference;
 
 
-        public CardViewHolder(LinearLayout item) {
+        public CardViewHolder(final LinearLayout item) {
             super(item);
-            contextWeakReference = new WeakReference<Context>(item.getContext());
             this.textView = (TextView) item.findViewById(R.id.card_view_textview);
             this.imageView = (SimpleDraweeView) item.findViewById(R.id.card_view_image);
         }
 
-
-        @Override
-        public void onClick(View v) {
-             Toast.makeText(contextWeakReference.get(),
-                     movieArrayList.get(getLayoutPosition()).getTitle(),
-                     Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -73,8 +67,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewHold
 
     }
 
+    public void addAll(@NonNull Collection collection){
+        int curSize = getItemCount();
+        movieArrayList.addAll(collection);
+        notifyItemRangeInserted(curSize, getItemCount());
+    }
+
+    public String getMovieID(int position){
+        return movieArrayList.get(position).getId();
+    }
+
+    public String getMovieTitle(int position){
+        return movieArrayList.get(position).getTitle();
+    }
+
     @Override
     public int getItemCount() {
         return movieArrayList.size();
     }
+
 }

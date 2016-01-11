@@ -1,11 +1,11 @@
 package ru.winfected.mcb.ui.themoviedb;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -21,6 +21,7 @@ import ru.winfected.mcb.model.themoviedb.ListMovie;
 import ru.winfected.mcb.model.themoviedb.Movie;
 import ru.winfected.mcb.network.themoviedb.MovieConfig;
 import ru.winfected.mcb.network.themoviedb.MoviesRestRequest;
+import ru.winfected.mcb.ui.EndlessRecyclerViewScrollListener;
 
 /**
  * Created by winfe on 31.12.2015.
@@ -28,36 +29,62 @@ import ru.winfected.mcb.network.themoviedb.MoviesRestRequest;
 public class MoviePopularFragment extends Fragment implements Callback<ListMovie> {
 
     RecyclerView recyclerView;
+    MovieAdapter movieAdapter;
+    MoviesRestRequest restRequest;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comics, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
         MovieConfig config = new MovieConfig(getString(R.string.themoviedb_api_key));
-        MoviesRestRequest restRequest = config.getRetrofit().create(MoviesRestRequest.class);
-        restRequest.getAllPopularMovies("popularity.desc").enqueue(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        restRequest = config.getRetrofit().create(MoviesRestRequest.class);
+        movieAdapter = new MovieAdapter(null);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(movieAdapter);
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                restRequest.getAllPopularMovies(page + 1,"popularity.desc").enqueue(MoviePopularFragment.this);
+            }
+        });
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position) {
+                startActivity(new Intent(view.getContext(), MovieInformationActivity.class)
+                        .putExtra("MovieID", movieAdapter.getMovieID(position))
+                        .putExtra("MovieTitle", movieAdapter.getMovieTitle(position)));
+            }
+
+        }));
+
+        restRequest.getAllPopularMovies(1, "popularity.desc").enqueue(this);
         return view;
     }
+
+
 
     @Override
     public void onResponse(Response<ListMovie> response, Retrofit retrofit) {
         if(response.body() == null)
             Toast.makeText(getContext(), response.message() + " " + String.valueOf(response.code()), Toast.LENGTH_LONG).show();
         else {
-            MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
-            ArrayList<Movie> movieArrayList = new ArrayList(response.body().getResults());
-            for(Movie m : movieArrayList) databaseHelper.addMovie(m);
-            recyclerView.setAdapter(new MovieAdapter(movieArrayList));
+            ListMovie listMovie = response.body();
+            movieAdapter.addAll(listMovie.getResults());
+
+            //MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+            //for(Movie m : movieArrayList) databaseHelper.addMovie(m);
         }
     }
 
     @Override
     public void onFailure(Throwable t) {
         Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-        MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
-        recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
+        //MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+        //recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
     }
 
 }
