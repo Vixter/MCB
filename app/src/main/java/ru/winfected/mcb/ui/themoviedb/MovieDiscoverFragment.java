@@ -65,8 +65,8 @@ public class MovieDiscoverFragment extends Fragment implements Callback<ListMovi
     @Override
     public void onFailure(Throwable t) {
         Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-        MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
-        recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
+        //MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+        //recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
 
     }
 

@@ -11,6 +11,7 @@ public class MovieItem
     @SerializedName("title") private String title;
     @SerializedName("budget") private String budget;
     @SerializedName("poster_path") private String poster_path;
+    @SerializedName("backdrop_path") private String backdrop_path;
     @SerializedName("vote_average") private String vote_average;
     @SerializedName("status") private String status;
     @SerializedName("runtime") private String runtime;
@@ -106,6 +107,14 @@ public class MovieItem
 
     public void setPoster_path(String poster_path) {
         this.poster_path = poster_path;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
 
     public String getPopularity() {

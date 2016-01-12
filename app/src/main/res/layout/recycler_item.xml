@@ -10,7 +10,7 @@
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         card_view:cardCornerRadius="5dp"
@@ -31,16 +31,18 @@
                 fresco:roundAsCircle="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_centerHorizontal="true"
+                android:layout_margin="2dp"/>
 
             <TextView
                 android:id="@+id/card_view_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/card_view_image"
-                android:layout_alignParentTop="true"
+                android:maxWidth="134dp"
                 android:textSize="15sp"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_below="@+id/card_view_image"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 

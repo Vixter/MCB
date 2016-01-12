@@ -78,7 +78,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(MOVIE_ID, Integer.parseInt(movie.getId()));
             values.put(MOVIE_TITLE, movie.getTitle());
-            values.put(MOVIE_POPULARITY, movie.getPopularity());
+            //values.put(MOVIE_POPULARITY, movie.getPopularity());
             values.put(MOVIE_BACKDROP, movie.getBackdrop_path());
             values.put(MOVIE_POSTER, movie.getPoster_path());
 
@@ -108,7 +108,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
                     Movie movie = new Movie();
                     movie.setId(String.valueOf(cursor.getInt(cursor.getColumnIndex(MOVIE_ID))));
                     movie.setBackdrop_path(cursor.getString(cursor.getColumnIndex(MOVIE_BACKDROP)));
-                    movie.setPopularity(cursor.getString(cursor.getColumnIndex(MOVIE_POPULARITY)));
+                    //movie.setPopularity(cursor.getString(cursor.getColumnIndex(MOVIE_POPULARITY)));
                     movie.setPoster_path(cursor.getString(cursor.getColumnIndex(MOVIE_POSTER)));
                     movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_TITLE)));
                     movies.add(movie);

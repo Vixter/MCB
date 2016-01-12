@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import ru.winfected.mcb.MCBApplication;
 import ru.winfected.mcb.R;
 import ru.winfected.mcb.db.MovieDatabaseHelper;
 import ru.winfected.mcb.model.themoviedb.ListMovie;
@@ -31,12 +32,14 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
     RecyclerView recyclerView;
     MovieAdapter movieAdapter;
     MoviesRestRequest restRequest;
+    boolean isActiveNetwork;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comics, container, false);
         MovieConfig config = new MovieConfig(getString(R.string.themoviedb_api_key));
+        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         restRequest = config.getRetrofit().create(MoviesRestRequest.class);
         movieAdapter = new MovieAdapter(null);
@@ -47,7 +50,9 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                restRequest.getAllPopularMovies(page + 1,"popularity.desc").enqueue(MoviePopularFragment.this);
+                if (isActiveNetwork){
+                    restRequest.getAllPopularMovies(page + 1, "popularity.desc").enqueue(MoviePopularFragment.this);
+                }
             }
         });
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -61,7 +66,12 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
 
         }));
 
-        restRequest.getAllPopularMovies(1, "popularity.desc").enqueue(this);
+        isActiveNetwork = MCBApplication.isConnectingToInternet(view.getContext().getApplicationContext());
+
+        if (isActiveNetwork){
+            restRequest.getAllPopularMovies(1, "popularity.desc").enqueue(this);
+        }
+
         return view;
     }
 
@@ -70,19 +80,19 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
     @Override
     public void onResponse(Response<ListMovie> response, Retrofit retrofit) {
         if(response.body() == null)
-            Toast.makeText(getContext(), response.message() + " " + String.valueOf(response.code()), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext().getApplicationContext(), response.message() + " " + String.valueOf(response.code()), Toast.LENGTH_LONG).show();
         else {
             ListMovie listMovie = response.body();
             movieAdapter.addAll(listMovie.getResults());
 
-            //MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
-            //for(Movie m : movieArrayList) databaseHelper.addMovie(m);
+            MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+            for(Movie m : listMovie.getResults()) databaseHelper.addMovie(m);
         }
     }
 
     @Override
     public void onFailure(Throwable t) {
-        Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext().getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         //MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
         //recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
     }

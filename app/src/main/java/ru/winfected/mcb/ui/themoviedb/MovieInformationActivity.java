@@ -47,7 +47,7 @@ public class MovieInformationActivity extends AppCompatActivity implements Callb
         MovieItem movieItem = response.body();
         textViewScore.setText(movieItem.getVote_average());
         textViewAbout.setText(movieItem.getOverview());
-        imageView.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185" + movieItem.getPoster_path()));
+        imageView.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185" + movieItem.getBackdrop_path()));
     }
 
     @Override
