@@ -67,7 +67,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        Fragment fragment;
+        try {
+            fragment = (Fragment) MoviePopularFragment.class.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            setTitle("Popular");
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -132,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 return;
-                //fragmentClass = CharactersFragment.class;
+
         }
 
         try {
@@ -144,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-        menuItem.setChecked(true);
+        //menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
     }
 

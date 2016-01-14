@@ -32,13 +32,15 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
     RecyclerView recyclerView;
     MovieAdapter movieAdapter;
     MoviesRestRequest restRequest;
+    MovieDatabaseHelper databaseHelper;
     boolean isActiveNetwork;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comics, container, false);
         MovieConfig config = new MovieConfig(getString(R.string.themoviedb_api_key));
+        databaseHelper = MovieDatabaseHelper.getInstance(getContext());
+
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         restRequest = config.getRetrofit().create(MoviesRestRequest.class);
@@ -52,6 +54,8 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
             public void onLoadMore(int page, int totalItemsCount) {
                 if (isActiveNetwork){
                     restRequest.getAllPopularMovies(page + 1, "popularity.desc").enqueue(MoviePopularFragment.this);
+                } else {
+                    movieAdapter.addAll(new ArrayList<Movie>(databaseHelper.getMoviesByPopularity(page)));
                 }
             }
         });
@@ -70,12 +74,12 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
 
         if (isActiveNetwork){
             restRequest.getAllPopularMovies(1, "popularity.desc").enqueue(this);
+        } else {
+            movieAdapter.addAll(new ArrayList<Movie>(databaseHelper.getMoviesByPopularity(1)));
         }
 
         return view;
     }
-
-
 
     @Override
     public void onResponse(Response<ListMovie> response, Retrofit retrofit) {
@@ -85,7 +89,6 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
             ListMovie listMovie = response.body();
             movieAdapter.addAll(listMovie.getResults());
 
-            MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
             for(Movie m : listMovie.getResults()) databaseHelper.addMovie(m);
         }
     }
@@ -93,8 +96,6 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
     @Override
     public void onFailure(Throwable t) {
         Toast.makeText(getContext().getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-        //MovieDatabaseHelper databaseHelper = MovieDatabaseHelper.getInstance(getContext());
-        //recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(databaseHelper.getAllMovies())));
     }
 
 }
