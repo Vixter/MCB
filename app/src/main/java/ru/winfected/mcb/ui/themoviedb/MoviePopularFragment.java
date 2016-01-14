@@ -75,7 +75,7 @@ public class MoviePopularFragment extends Fragment implements Callback<ListMovie
         if (isActiveNetwork){
             restRequest.getAllPopularMovies(1, "popularity.desc").enqueue(this);
         } else {
-            movieAdapter.addAll(new ArrayList<Movie>(databaseHelper.getMoviesByPopularity(1)));
+            movieAdapter.addAll(new ArrayList<Movie>(databaseHelper.getMoviesByPopularity(0)));
         }
 
         return view;

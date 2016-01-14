@@ -127,6 +127,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
                     movie.setVote_average(cursor.getDouble(cursor.getColumnIndex(MOVIE_VOTE_AVERAGE)));
                     movie.setRelease_date(cursor.getString(cursor.getColumnIndex(MOVIE_RELEASE_DATE)));
                     movies.add(movie);
+                    count++;
                 } while(cursor.moveToNext());
             }
         } catch (Exception e) {
