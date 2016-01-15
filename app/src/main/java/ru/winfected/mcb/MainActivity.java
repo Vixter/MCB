@@ -18,6 +18,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import ru.winfected.mcb.ui.marvel.characters.CharactersFragment;
 import ru.winfected.mcb.ui.themoviedb.MovieDiscoverFragment;
 import ru.winfected.mcb.ui.themoviedb.MoviePopularFragment;
+import ru.winfected.mcb.ui.themoviedb.MovieSearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +58,23 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
                         .show();
+
+                try {
+                    Fragment fragment;
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragment = (Fragment) MovieSearchFragment.class.newInstance();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("query", query);
+                    fragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                    setTitle("Search");
+
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
 
@@ -67,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Fragment fragment;
         try {
+            final Fragment fragment;
             fragment = (Fragment) MoviePopularFragment.class.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();

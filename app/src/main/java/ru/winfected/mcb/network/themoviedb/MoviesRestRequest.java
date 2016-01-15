@@ -23,4 +23,7 @@ public interface MoviesRestRequest {
 
     @GET("/3/movie/{id}")
     Call<MovieItem> getMovieByID(@Path("id") String ID);
+
+    @GET("3/search/movie")
+    Call<ListMovie> searchByTitle(@Query("query") String query);
 }
